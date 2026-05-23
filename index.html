@@ -3,63 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برمجاتي - WhatsApp</title>
+    <title>برمجاتي - محادثة خاصة</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #e5ddd5; display: flex; flex-direction: column; height: 100vh; }
-        .header { background-color: #075e54; color: white; padding: 15px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .header h1 { font-size: 20px; font-weight: bold; }
-        .header .status { font-size: 12px; color: #d1f4cc; margin-right: 10px; }
-        .chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .message { max-width: 70%; padding: 10px 15px; border-radius: 8px; font-size: 15px; line-height: 1.4; position: relative; word-wrap: break-word; }
+        body { background-color: #e5ddd5; display: flex; flex-direction: column; height: 100vh; justify-content: center; align-items: center; }
+        
+        .screen { display: none; width: 100%; max-width: 400px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); text-align: center; }
+        .screen.active { display: flex; flex-direction: column; gap: 15px; }
+        
+        h2 { color: #075e54; margin-bottom: 10px; font-size: 22px; }
+        p { color: #666; font-size: 14px; }
+        
+        input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; outline: none; font-size: 16px; text-align: center; }
+        button { width: 100%; background-color: #128c7e; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.2s; }
+        button:hover { background-color: #075e54; }
+        button.secondary { background-color: #34b7f1; }
+        button.secondary:hover { background-color: #0ea4e4; }
+
+        #chatScreen { width: 100%; max-width: 100%; height: 100vh; border-radius: 0; padding: 0; box-shadow: none; background-color: #e5ddd5; }
+        .header { background-color: #075e54; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .header h1 { font-size: 18px; }
+        .header .room-info { font-size: 13px; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 10px; }
+        
+        .chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; width: 100%; }
+        .message { max-width: 70%; padding: 10px 15px; border-radius: 8px; font-size: 15px; line-height: 1.4; word-wrap: break-word; }
         .message.sent { background-color: #dcf8c6; align-self: flex-start; border-top-left-radius: 0; }
         .message.received { background-color: white; align-self: flex-end; border-top-right-radius: 0; }
         .message .username { font-size: 11px; color: #27ae60; font-weight: bold; margin-bottom: 3px; }
-        .input-area { background-color: #f0f0f0; padding: 10px; display: flex; gap: 10px; align-items: center; }
-        .input-area input { flex: 1; padding: 12px; border: none; border-radius: 20px; outline: none; font-size: 15px; }
-        .input-area button { background-color: #128c7e; color: white; border: none; padding: 12px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 15px; }
+
+        .input-area { background-color: #f0f0f0; padding: 10px; display: flex; gap: 10px; align-items: center; width: 100%; }
+        .input-area input { flex: 1; border-radius: 20px; text-align: right; padding: 12px 20px; }
+        .input-area button { width: auto; border-radius: 20px; padding: 12px 25px; }
     </style>
-    <!-- استدعاء مكتبة قاعدة البيانات السحابية المستقرة -->
     <script src="https://jsdelivr.net"></script>
 </head>
 <body>
 
-    <div class="header">
-        <div>
-            <h1>برمجاتي</h1>
-            <div class="status">متصل عبر خادم سحابي آمن</div>
+    <!-- 1. شاشة طلب الاسم -->
+    <div class="screen active" id="nameScreen">
+        <h2>مرحباً بك في برمجاتي</h2>
+        <p>يرجى إدخال اسمك المستعار للبدء</p>
+        <input type="text" id="usernameInput" placeholder="اكتب اسمك هنا...">
+        <button type="button" onclick="saveName()">استمرار</button>
+    </div>
+
+    <!-- 2. شاشة خيارات المحادثة -->
+    <div class="screen" id="optionsScreen">
+        <h2>خيارات المحادثة</h2>
+        <p>مرحباً <span id="userGreeting" style="font-weight:bold; color:#128c7e;"></span>، ماذا تريد أن تفعل الآن؟</p>
+        <button type="button" onclick="showRoomScreen('create')">إنشاء محادثة جديدة</button>
+        <button type="button" class="secondary" onclick="showRoomScreen('join')">الانضمام إلى محادثة قائمة</button>
+    </div>
+
+    <!-- 3. شاشة إدخال أو إنشاء الرمز (4 أرقام) -->
+    <div class="screen" id="roomScreen">
+        <h2 id="roomTitle">إنشاء غرفة محادثة</h2>
+        <p id="roomDesc">أدخل رمزاً مكوناً من 4 أرقام</p>
+        <input type="number" id="roomCodeInput" placeholder="XXXX" pattern="[0-9]*" inputmode="numeric">
+        <button type="button" id="roomBtn" onclick="processRoomAction()">تأكيد الدخول</button>
+        <button type="button" class="secondary" style="background-color: #777;" onclick="backToOptions()">رجوع</button>
+    </div>
+
+    <!-- 4. شاشة المحادثة والشات الافتراضية -->
+    <div class="screen" id="chatScreen">
+        <div class="header">
+            <h1>برمجاتي للاتصال</h1>
+            <div class="room-info">رمز الغرفة: <span id="activeRoomCode" style="font-weight: bold;">0000</span></div>
+        </div>
+        <div class="chat-container" id="chatContainer"></div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
+            <button type="button" onclick="sendMessage()">إرسال</button>
         </div>
     </div>
 
-    <div class="chat-container" id="chatContainer"></div>
-
-    <div class="input-area">
-        <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()">إرسال</button>
-    </div>
-
     <script>
-        // طلب الاسم وتخزينه
-        const myUsername = localStorage.getItem('chat_user') || prompt("أدخل اسمك المستعار لبدء المحادثة:") || "مستخدم مجهول";
-        localStorage.setItem('chat_user', myUsername);
-
-        // ربط السيرفر السحابي المجاني المستقر للتشات (تلقائي التشغيل)
+        // إعدادات الخادم السحابي الآمن
         const supabaseUrl = 'https://supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHd6c2h2eGZ1eW13ZXhieXF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NTAwMDAsImV4cCI6MjAyNjg2MDAwMH0.SUPABASE_ANON_KEY_SAFE_FOR_PUBLIC_CHAT'; 
         const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        const chatContainer = document.getElementById('chatContainer');
-        const messageInput = document.getElementById('messageInput');
+        let myUsername = "";
+        let currentRoomCode = "";
+        let currentAction = ""; 
+        let channel = null;
 
-        // قنوات البث الفوري (Realtime) لتبادل الرسائل فوراً بين الهواتف
-        const channel = _supabase.channel('barmajaty_room')
-        .on('broadcast', { event: 'msg' }, payload => {
-            displayMessage(payload.payload);
-        })
-        .subscribe();
+        function switchScreen(screenId) {
+            // إخفاء كل الشاشات أولاً
+            document.getElementById('nameScreen').style.display = 'none';
+            document.getElementById('optionsScreen').style.display = 'none';
+            document.getElementById('roomScreen').style.display = 'none';
+            document.getElementById('chatScreen').style.display = 'none';
+            
+            // إظهار الشاشة المطلوبة بالشكل الصحيح
+            const targetScreen = document.getElementById(screenId);
+            if (screenId === 'chatScreen') {
+                targetScreen.style.display = 'flex';
+            } else {
+                targetScreen.style.display = 'block';
+                targetScreen.style.margin = 'auto';
+            }
+        }
 
-        // دالة عرض الرسالة على الشاشة
+        // التفعيل المبدئي للشاشة الأولى عند فتح التطبيق
+        switchScreen('nameScreen');
+
+        function saveName() {
+            const nameInput = document.getElementById('usernameInput');
+            const name = nameInput.value.trim();
+            if (name === "") { 
+                alert("الرجاء كتابة اسمك أولاً!"); 
+                return; 
+            }
+            myUsername = name;
+            document.getElementById('userGreeting').innerText = myUsername;
+            switchScreen('optionsScreen');
+        }
+
+        function showRoomScreen(action) {
+            currentAction = action;
+            const title = document.getElementById('roomTitle');
+            const desc = document.getElementById('roomDesc');
+            const btn = document.getElementById('roomBtn');
+            document.getElementById('roomCodeInput').value = "";
+
+            if (action === 'create') {
+                title.innerText = "إنشاء محادثة جديدة";
+                desc.innerText = "اختر رمزاً من 4 أرقام وأعطه لصديقك ليتمكن من الدخول معك:";
+                btn.innerText = "إنشاء الغرفة وبدء الشات";
+            } else {
+                title.innerText = "الانضمام للمحادثة";
+                desc.innerText = "أدخل الرمز المكون من 4 أرقام الذي أرسله لك صديقك:";
+                btn.innerText = "انضمام الآن";
+            }
+            switchScreen('roomScreen');
+        }
+
+        function backToOptions() { 
+            switchScreen('optionsScreen'); 
+        }
+
+        function processRoomAction() {
+            const codeInput = document.getElementById('roomCodeInput');
+            let code = codeInput.value.trim();
+            
+            if (code.length > 4) {
+                code = code.slice(0, 4);
+            }
+            
+            if (code.length !== 4) { 
+                alert("يجب أن يتكون الرمز من 4 أرقام تماماً!"); 
+                return; 
+            }
+            
+            currentRoomCode = code;
+            document.getElementById('activeRoomCode').innerText = currentRoomCode;
+            
+            connectToChatRoom(currentRoomCode);
+            switchScreen('chatScreen');
+        }
+
+        function connectToChatRoom(roomCode) {
+            channel = _supabase.channel('room_' + roomCode)
+            .on('broadcast', { event: 'msg' }, payload => {
+                displayMessage(payload.payload);
+            })
+            .subscribe();
+        }
+
         function displayMessage(data) {
+            const chatContainer = document.getElementById('chatContainer');
             const msgDiv = document.createElement('div');
             
             if (data.sender === myUsername) {
@@ -73,23 +186,20 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // دالة إرسال الرسالة وبثها لصديقك
         async function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
             const text = messageInput.value.trim();
-            if (text === '') return;
+            if (text === '' || !channel) return;
 
             const msgData = { sender: myUsername, text: text };
 
-            // إرسال الرسالة إلى هاتف صديقك فوراً
             await channel.send({
                 type: 'broadcast',
                 event: 'msg',
                 payload: msgData
             });
 
-            // عرضها على شاشتك أيضاً
             displayMessage(msgData);
-
             messageInput.value = '';
             messageInput.focus();
         }
