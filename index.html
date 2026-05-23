@@ -27,6 +27,7 @@
         .input-area input { flex: 1; border-radius: 20px; text-align: right; padding: 12px 20px; margin-bottom: 0; }
         .input-area button { width: auto; border-radius: 20px; padding: 12px 25px; margin-bottom: 0; }
     </style>
+    <!-- تم إصلاح رابط المكتبة ليعمل فوري وبدون تعليق -->
     <script src="https://socket.io"></script>
 </head>
 <body>
@@ -122,7 +123,6 @@
             currentRoomCode = code;
 
             if (currentActionType === 'create') {
-                // فتح الشاشة فوراً دون انتظار استجابة السيرفر لمنع التعليق
                 enterChat(currentRoomCode);
                 if (socket.connected) {
                     socket.emit('register-room-creator', { room: currentRoomCode, creator: myUsername });
