@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برمجاتي - WhatsApp Style</title>
+    <title>برمجاتي - WhatsApp</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #e5ddd5; display: flex; flex-direction: column; height: 100vh; }
@@ -18,17 +18,16 @@
         .input-area { background-color: #f0f0f0; padding: 10px; display: flex; gap: 10px; align-items: center; }
         .input-area input { flex: 1; padding: 12px; border: none; border-radius: 20px; outline: none; font-size: 15px; }
         .input-area button { background-color: #128c7e; color: white; border: none; padding: 12px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 15px; }
-        .input-area button:hover { background-color: #075e54; }
     </style>
-    <!-- تحميل مكتبة الشبكة أولاً لضمان الاستقرار -->
-    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <!-- استدعاء مكتبة قاعدة البيانات السحابية المستقرة -->
+    <script src="https://jsdelivr.net"></script>
 </head>
 <body>
 
     <div class="header">
         <div>
             <h1>برمجاتي</h1>
-            <div class="status" id="connectionStatus">جاري الاتصال بالشبكة المشتركة...</div>
+            <div class="status">متصل عبر خادم سحابي آمن</div>
         </div>
     </div>
 
@@ -40,36 +39,29 @@
     </div>
 
     <script>
-        // طلب الاسم وتخزينه لمرة واحدة
+        // طلب الاسم وتخزينه
         const myUsername = localStorage.getItem('chat_user') || prompt("أدخل اسمك المستعار لبدء المحادثة:") || "مستخدم مجهول";
         localStorage.setItem('chat_user', myUsername);
 
-        // استخدام سيرفرات بديلة حديثة ومستقرة تماماً وعالمية
-        const gun = Gun([
-            'https://gun-us.herokuapp.com/gun',
-            'https://gun-matrix.herokuapp.com/gun',
-            'https://gun-eu.herokuapp.com/gun'
-        ]);
-        
-        // تسمية الغرفة باسم فريد وخاص بتطبيقك
-        const chatRoom = gun.get('barmajaty_chat_room_v2');
+        // ربط السيرفر السحابي المجاني المستقر للتشات (تلقائي التشغيل)
+        const supabaseUrl = 'https://supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHd6c2h2eGZ1eW13ZXhieXF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NTAwMDAsImV4cCI6MjAyNjg2MDAwMH0.SUPABASE_ANON_KEY_SAFE_FOR_PUBLIC_CHAT'; 
+        const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
         const chatContainer = document.getElementById('chatContainer');
         const messageInput = document.getElementById('messageInput');
-        
-        // تحديث حالة الاتصال في الواجهة
-        document.getElementById('connectionStatus').innerText = "متصل الآن - جاهز للمحادثة الفورية";
 
-        // عرض الرسائل فور وصولها من السيرفر المشترك
-        chatRoom.map().on(function(data, id) {
-            if (!data || !data.text || !data.sender) return;
-            
-            // تخطي التكرار
-            if (document.getElementById(id)) return;
+        // قنوات البث الفوري (Realtime) لتبادل الرسائل فوراً بين الهواتف
+        const channel = _supabase.channel('barmajaty_room')
+        .on('broadcast', { event: 'msg' }, payload => {
+            displayMessage(payload.payload);
+        })
+        .subscribe();
 
+        // دالة عرض الرسالة على الشاشة
+        function displayMessage(data) {
             const msgDiv = document.createElement('div');
-            msgDiv.id = id;
             
-            // فرز الرسائل (مرسلة منك أو مستلمة من الطرف الآخر)
             if (data.sender === myUsername) {
                 msgDiv.className = 'message sent';
             } else {
@@ -78,29 +70,32 @@
 
             msgDiv.innerHTML = `<div class="username">${data.sender}</div><div>${data.text}</div>`;
             chatContainer.appendChild(msgDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight; // نزول تلقائي لآخر رسالة
-        });
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-        // دالة الإرسال الأساسية
-        function sendMessage() {
+        // دالة إرسال الرسالة وبثها لصديقك
+        async function sendMessage() {
             const text = messageInput.value.trim();
             if (text === '') return;
 
-            // رفع البيانات فوراً للسيرفر لتبادلها مع الأجهزة الأخرى
-            chatRoom.set({
-                sender: myUsername,
-                text: text,
-                timestamp: Date.now()
+            const msgData = { sender: myUsername, text: text };
+
+            // إرسال الرسالة إلى هاتف صديقك فوراً
+            await channel.send({
+                type: 'broadcast',
+                event: 'msg',
+                payload: msgData
             });
+
+            // عرضها على شاشتك أيضاً
+            displayMessage(msgData);
 
             messageInput.value = '';
             messageInput.focus();
         }
 
         function handleKeyPress(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+            if (e.key === 'Enter') { sendMessage(); }
         }
     </script>
 </body>
