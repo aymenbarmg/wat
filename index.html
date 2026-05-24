@@ -7,34 +7,263 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body { background-color: #e5ddd5; display: flex; flex-direction: column; height: 100vh; justify-content: center; align-items: center; overflow: hidden; }
-        .screen { display: none !important; width: 90%; max-width: 400px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); text-align: center; }
+        .screen { display: none !important; width: 90%; max-width: 400px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); text-align: center; }
         .screen.active { display: block !important; }
         h2 { color: #075e54; margin-bottom: 10px; }
         p { color: #666; font-size: 14px; margin-bottom: 15px; }
         input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; outline: none; font-size: 16px; text-align: center; margin-bottom: 15px; }
         button { width: 100%; background-color: #128c7e; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; margin-bottom: 10px; }
-        button:hover { background-color: #075e54; }
         button.secondary { background-color: #34b7f1; }
+        
         #chatScreen { width: 100%; max-width: 100%; height: 100vh; border-radius: 0; padding: 0; background-color: #e5ddd5; }
         #chatScreen.active { display: flex !important; flex-direction: column; }
         .header { background-color: #075e54; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 60px; }
         .chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 60px; }
-        .message { max-width: 70%; padding: 10px 15px; border-radius: 8px; font-size: 15px; word-wrap: break-word; }
-        .message.sent { background-color: #dcf8c6; align-self: flex-start; border-top-left-radius: 0; }
-        .message.received { background-color: white; align-self: flex-end; border-top-right-radius: 0; }
+        
+        .message { max-width: 70%; padding: 10px 15px; border-radius: 8px; font-size: 15px; word-wrap: break-word; text-align: right; }
+        .message.sent { background-color: #dcf8c6; align-self: flex-end; border-top-right-radius: 0; }
+        .message.received { background-color: white; align-self: flex-start; border-top-left-radius: 0; }
+        
         .message .username { font-size: 11px; color: #27ae60; font-weight: bold; margin-bottom: 3px; }
         .input-area { background-color: #f0f0f0; padding: 10px; display: flex; gap: 10px; align-items: center; width: 100%; position: fixed; bottom: 0; height: 60px; }
         .input-area input { flex: 1; border-radius: 20px; text-align: right; padding: 12px 20px; margin-bottom: 0; }
         .input-area button { width: auto; border-radius: 20px; padding: 12px 25px; margin-bottom: 0; }
     </style>
-    <!-- تم إصلاح رابط المكتبة ليعمل فوري وبدون تعليق -->
-    <script src="https://socket.io"></script>
+    
+    <!-- استدعاء مكتبات Firebase المستقرة -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    push,
+    set,
+    get,
+    child,
+    onChildAdded
+}
+
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyDhY1_FeJ53ZUpZlszD9vKkjyMz9HOgYN8",
+
+    authDomain: "wats-41f58.firebaseapp.com",
+
+    databaseURL: "https://wats-41f58-default-rtdb.firebaseio.com",
+
+    projectId: "wats-41f58",
+
+    storageBucket: "wats-41f58.appspot.com",
+
+    messagingSenderId: "277505138255",
+
+    appId: "1:277505138255:web:b7260eb4c7a672141ed43a"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+window.myUsername = "";
+window.currentRoomCode = "";
+window.currentActionType = "";
+
+// تبديل الصفحات
+window.switchScreen = function(id) {
+
+    document.querySelectorAll('.screen')
+    .forEach(screen => {
+
+        screen.classList.remove('active');
+
+    });
+
+    document.getElementById(id)
+    .classList.add('active');
+
+};
+
+// حفظ الاسم
+window.saveName = function() {
+
+    const name =
+        document.getElementById('usernameInput')
+        .value.trim();
+
+    if(name === "") {
+
+        alert("اكتب اسمك");
+
+        return;
+
+    }
+
+    window.myUsername = name;
+
+    switchScreen('optionsScreen');
+
+};
+
+// فتح شاشة الغرف
+window.showRoomScreen = function(action) {
+
+    currentActionType = action;
+
+    document.getElementById('roomCodeInput')
+    .value = "";
+
+    switchScreen('roomScreen');
+
+};
+
+// إنشاء أو دخول غرفة
+window.processRoomAction = async function() {
+
+    const code =
+        document.getElementById('roomCodeInput')
+        .value.trim();
+
+    if(code.length < 4) {
+
+        alert("الكود يجب أن يكون 4 أرقام");
+
+        return;
+
+    }
+
+    currentRoomCode = code;
+
+    // إنشاء غرفة
+    if(currentActionType === "create") {
+
+        await set(
+            ref(db, 'rooms/' + code),
+            {
+                creator: myUsername
+            }
+        );
+
+        enterChat(code);
+
+    }
+
+    // دخول غرفة
+    else {
+
+        const snapshot =
+            await get(
+                child(
+                    ref(db),
+                    'rooms/' + code
+                )
+            );
+
+        if(!snapshot.exists()) {
+
+            alert("الغرفة غير موجودة");
+
+            return;
+
+        }
+
+        enterChat(code);
+
+    }
+
+};
+
+// دخول الشات
+window.enterChat = function(code) {
+
+    document.getElementById('activeRoomCode')
+    .innerText = code;
+
+    switchScreen('chatScreen');
+
+    document.getElementById('chatContainer')
+    .innerHTML = "";
+
+    onChildAdded(
+        ref(db, 'rooms/' + code + '/messages'),
+
+        (snapshot) => {
+
+            const msg = snapshot.val();
+
+            appendMessageToDOM(
+                msg.sender,
+                msg.text
+            );
+
+        }
+    );
+
+};
+
+// إضافة رسالة للشاشة
+window.appendMessageToDOM = function(sender, text) {
+
+    const container =
+        document.getElementById('chatContainer');
+
+    const div =
+        document.createElement('div');
+
+    div.className =
+        sender === myUsername
+        ? 'message sent'
+        : 'message received';
+
+    div.innerHTML = `
+        <div class="username">${sender}</div>
+        <div>${text}</div>
+    `;
+
+    container.appendChild(div);
+
+    container.scrollTop =
+        container.scrollHeight;
+
+};
+
+// إرسال رسالة
+window.sendMessage = async function() {
+
+    const input =
+        document.getElementById('messageInput');
+
+    const text =
+        input.value.trim();
+
+    if(text === "") return;
+
+    await push(
+        ref(
+            db,
+            'rooms/' + currentRoomCode + '/messages'
+        ),
+        {
+            sender: myUsername,
+            text: text
+        }
+    );
+
+    input.value = "";
+
+};
+
+</script>
 </head>
 <body>
 
     <!-- 1. شاشة الاسم -->
     <div class="screen active" id="nameScreen">
-        <h2>مرحباً في برمجاتي</h2>
+        <h2>برمجاتي</h2>
         <p>أدخل اسمك المستعار لبدء المحادثة</p>
         <input type="text" id="usernameInput" placeholder="اكتب اسمك هنا...">
         <button type="button" onclick="saveName()">استمرار</button>
@@ -43,22 +272,22 @@
     <!-- 2. خيارات المحادثة -->
     <div class="screen" id="optionsScreen">
         <h2>خيارات المحادثة</h2>
-        <p>مرحباً بك في تطبيقك الخاص، اختر ما تريد:</p>
+        <p>اختر الإجراء المطلوب للبدء:</p>
         <button type="button" onclick="showRoomScreen('create')">إنشاء محادثة جديدة</button>
         <button type="button" class="secondary" onclick="showRoomScreen('join')">الانضمام إلى محادثة</button>
     </div>
 
-    <!-- 3. شاشة الرمز المكون من 4 أرقام -->
+    <!-- 3. شاشة الرمز -->
     <div class="screen" id="roomScreen">
         <h2 id="roomTitle">غرفة المحادثة</h2>
         <p id="roomDesc">أدخل رمزاً مكوناً من 4 أرقام</p>
-        <input type="number" id="roomCodeInput" placeholder="XXXX" pattern="[0-9]*" inputmode="numeric">
+        <input type="text" id="roomCodeInput" placeholder="1234">
         <p id="creatorInfo" style="color: #27ae60; font-weight: bold; margin-bottom: 15px; display: none;"></p>
         <button type="button" id="roomBtn" onclick="processRoomAction()">تأكيد</button>
         <button type="button" class="secondary" style="background-color: #777;" onclick="switchScreen('optionsScreen')">رجوع</button>
     </div>
 
-    <!-- 4. شاشة الشات والرسائل المتصلة -->
+    <!-- 4. شاشة الشات والرسائل -->
     <div class="screen" id="chatScreen">
         <div class="header">
             <h3>برمجاتي للاتصال</h3>
@@ -70,108 +299,35 @@
             <button type="button" onclick="sendMessage()">إرسال</button>
         </div>
     </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    <script>
-        let myUsername = "", currentRoomCode = "", currentActionType = "";
-        let socket = io('https://pie-historical-crater.glitch.me');
+  // معلومات الفايربيس الخاصة بك
+  const firebaseConfig = {
+    apiKey: "AIzaSyDhY1_FeJ53ZUpZlszD9vKkjyMz9HOgYN8",
+    authDomain: "wats-41f58.firebaseapp.com",
+    databaseURL: "https://wats-41f58-default-rtdb.firebaseio.com",
+    projectId: "wats-41f58",
+    storageBucket: "wats-41f58.firebasestorage.app",
+    messagingSenderId: "277505138255",
+    appId: "1:277505138255:web:b7260eb4c7a672141ed43a"
+  };
 
-        function switchScreen(id) {
-            document.getElementById('nameScreen').classList.remove('active');
-            document.getElementById('optionsScreen').classList.remove('active');
-            document.getElementById('roomScreen').classList.remove('active');
-            document.getElementById('chatScreen').classList.remove('active');
-            document.getElementById(id).classList.add('active');
+  // تشغيل قاعدة البيانات
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+  // هذا الجزء السحري يترجم كودك القديم (db.ref) إلى الطريقة الجديدة تلقائياً
+  window.db = {
+    ref: function(path) {
+      return {
+        push: function(data) {
+          return push(ref(database, path), data);
         }
-
-        function saveName() {
-            const name = document.getElementById('usernameInput').value.trim();
-            if (name === "") return alert("اكتب اسمك أولاً!");
-            myUsername = name;
-            switchScreen('optionsScreen');
-        }
-
-        function showRoomScreen(action) {
-            currentActionType = action;
-            document.getElementById('roomCodeInput').value = "";
-            document.getElementById('creatorInfo').style.display = "none";
-            document.getElementById('roomBtn').onclick = processRoomAction;
-            
-            if (action === 'create') {
-                document.getElementById('roomTitle').innerText = "إنشاء محادثة جديدة";
-                document.getElementById('roomDesc').innerText = "اختر رمزاً من 4 أرقام وأعطه لصديقك:";
-                document.getElementById('roomBtn').innerText = "إنشاء الغرفة وبدء الشات";
-            } else {
-                document.getElementById('roomTitle').innerText = "الانضمام للمحادثة";
-                document.getElementById('roomDesc').innerText = "أدخل الرمز للبحث عن الغرفة:";
-                document.getElementById('roomBtn').innerText = "بحث عن الغرفة";
-            }
-            switchScreen('roomScreen');
-        }
-
-        function appendMessageToDOM(sender, text) {
-            const container = document.getElementById('chatContainer');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = (sender === myUsername) ? 'message sent' : 'message received';
-            msgDiv.innerHTML = `<div class="username">${sender}</div><div>${text}</div>`;
-            container.appendChild(msgDiv);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function processRoomAction() {
-            let code = document.getElementById('roomCodeInput').value.trim();
-            if (code.length !== 4) return alert("يجب أن يتكون الرمز من 4 أرقام!");
-            currentRoomCode = code;
-
-            if (currentActionType === 'create') {
-                enterChat(currentRoomCode);
-                if (socket.connected) {
-                    socket.emit('register-room-creator', { room: currentRoomCode, creator: myUsername });
-                }
-            } else {
-                if (socket.connected) {
-                    socket.emit('check-room-owner', currentRoomCode);
-                } else {
-                    alert("جاري الاتصال بالخادم، يرجى المحاولة بعد ثوانٍ قليلة.");
-                }
-            }
-        }
-
-        socket.on('room-owner-response', (creatorName) => {
-            const info = document.getElementById('creatorInfo');
-            const btn = document.getElementById('roomBtn');
-            if (!creatorName) return alert("هذه الغرفة غير موجودة حالياً!");
-
-            info.innerText = `مؤسس الغرفة: ${creatorName}`;
-            info.style.display = "block";
-            btn.innerText = "تأكيد الانضمام والتشات";
-            btn.onclick = function() { enterChat(currentRoomCode); };
-        });
-
-        function enterChat(code) {
-            document.getElementById('activeRoomCode').innerText = code;
-            switchScreen('chatScreen');
-            if (socket.connected) {
-                socket.emit('join-room', code);
-            }
-        }
-
-        socket.on('receive-message', (data) => {
-            if (data.sender !== myUsername) {
-                appendMessageToDOM(data.sender, data.text);
-            }
-        });
-
-        function sendMessage() {
-            const input = document.getElementById('messageInput'), text = input.value.trim();
-            if (text === '') return;
-            
-            appendMessageToDOM(myUsername, text);
-            if (socket.connected) {
-                socket.emit('send-message', { room: currentRoomCode, sender: myUsername, text: text });
-            }
-            input.value = '';
-            input.focus();
-        }
-    </script>
+      };
+    }
+  };
+</script>
 </body>
 </html>
