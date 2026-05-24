@@ -89,7 +89,9 @@ window.switchScreen = function(id) {
 };
 
 // حفظ الاسم
-window.saveName = function() {
+
+
+   window.saveName = function() {
 
     const name =
         document.getElementById('usernameInput')
@@ -102,6 +104,12 @@ window.saveName = function() {
         return;
 
     }
+
+    // حفظ الاسم
+    localStorage.setItem(
+        "chatUsername",
+        name
+    );
 
     window.myUsername = name;
 
