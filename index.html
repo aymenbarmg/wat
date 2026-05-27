@@ -1,33 +1,233 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>برمجاتي</title>
+    <link rel="icon" type="image/png" href="icon.png">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #e5ddd5; display: flex; flex-direction: column; height: 100vh; justify-content: center; align-items: center; overflow: hidden; }
-        .screen { display: none !important; width: 90%; max-width: 400px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); text-align: center; }
-        .screen.active { display: block !important; }
-        h2 { color: #075e54; margin-bottom: 10px; }
-        p { color: #666; font-size: 14px; margin-bottom: 15px; }
-        input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; outline: none; font-size: 16px; text-align: center; margin-bottom: 15px; }
-        button { width: 100%; background-color: #128c7e; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; margin-bottom: 10px; }
-        button.secondary { background-color: #34b7f1; }
-        
-        #chatScreen { width: 100%; max-width: 100%; height: 100vh; border-radius: 0; padding: 0; background-color: #e5ddd5; }
-        #chatScreen.active { display: flex !important; flex-direction: column; }
-        .header { background-color: #075e54; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 60px; }
-        .chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 60px; }
-        
-        .message { max-width: 70%; padding: 10px 15px; border-radius: 8px; font-size: 15px; word-wrap: break-word; text-align: right; }
-        .message.sent { background-color: #dcf8c6; align-self: flex-end; border-top-right-radius: 0; }
-        .message.received { background-color: white; align-self: flex-start; border-top-left-radius: 0; }
-        
-        .message .username { font-size: 11px; color: #27ae60; font-weight: bold; margin-bottom: 3px; }
-        .input-area { background-color: #f0f0f0; padding: 10px; display: flex; gap: 10px; align-items: center; width: 100%; position: fixed; bottom: 0; height: 60px; }
-        .input-area input { flex: 1; border-radius: 20px; text-align: right; padding: 12px 20px; margin-bottom: 0; }
-        .input-area button { width: auto; border-radius: 20px; padding: 12px 25px; margin-bottom: 0; }
+      *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background:
+    linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
+    url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* جميع الشاشات */
+.screen{
+    display:none !important;
+    width:95%;
+    max-width:420px;
+    padding:30px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 8px 32px rgba(0,0,0,0.35);
+    animation:show 0.4s ease;
+}
+
+.screen.active{
+    display:block !important;
+}
+
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* العنوان */
+h2,h3{
+    color:white;
+    text-align:center;
+    margin-bottom:10px;
+    font-size:28px;
+}
+
+p{
+    color:#ddd;
+    text-align:center;
+    margin-bottom:18px;
+    line-height:1.6;
+}
+
+/* الإدخال */
+input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+    background:rgba(255,255,255,0.1);
+    color:white;
+    font-size:16px;
+    margin-bottom:15px;
+    backdrop-filter:blur(10px);
+}
+
+input::placeholder{
+    color:#ccc;
+}
+
+/* الأزرار */
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(45deg,#00c6ff,#0072ff);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    margin-bottom:12px;
+    box-shadow:0 4px 15px rgba(0,114,255,0.4);
+}
+
+button:hover{
+    transform:translateY(-2px) scale(1.02);
+}
+
+button.secondary{
+    background:linear-gradient(45deg,#ff416c,#ff4b2b);
+    box-shadow:0 4px 15px rgba(255,75,43,0.4);
+}
+
+/* شاشة المحادثة */
+#chatScreen{
+    width:100%;
+    height:100vh;
+    max-width:100%;
+    border-radius:0;
+    padding:0;
+    background:none;
+}
+
+#chatScreen.active{
+    display:flex !important;
+    flex-direction:column;
+}
+
+/* الهيدر */
+.header{
+    height:70px;
+    background:rgba(0,0,0,0.35);
+    backdrop-filter:blur(20px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    color:white;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* الرسائل */
+.chat-container{
+    flex:1;
+    overflow-y:auto;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+/* الرسالة */
+.message{
+    max-width:75%;
+    padding:14px 16px;
+    border-radius:20px;
+    animation:fadeIn 0.3s ease;
+    position:relative;
+    backdrop-filter:blur(10px);
+}
+
+.message.sent{
+    align-self:flex-end;
+    background:linear-gradient(45deg,#00b09b,#96c93d);
+    color:white;
+    border-bottom-right-radius:5px;
+}
+
+.message.received{
+    align-self:flex-start;
+    background:rgba(255,255,255,0.15);
+    color:white;
+    border-bottom-left-radius:5px;
+}
+
+/* اسم المستخدم */
+.username{
+    font-size:11px;
+    color:#ffe082;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+/* الكتابة */
+.input-area{
+    padding:12px;
+    display:flex;
+    gap:10px;
+    background:rgba(0,0,0,0.35);
+    backdrop-filter:blur(20px);
+}
+
+.input-area input{
+    flex:1;
+    margin:0;
+    border-radius:30px;
+    padding:15px 20px;
+}
+
+.input-area button{
+    width:auto;
+    border-radius:30px;
+    padding:0 25px;
+    margin:0;
+}
+
+/* سكرول */
+.chat-container::-webkit-scrollbar{
+    width:5px;
+}
+
+.chat-container::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,0.2);
+    border-radius:10px;
+}
+
+/* الحركة */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
     </style>
     
     <!-- استدعاء مكتبات Firebase المستقرة -->
