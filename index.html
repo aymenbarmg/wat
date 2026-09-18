@@ -1,45 +1,71 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لمسه</title>
-    <link rel="apple-touch-icon" href="icon.jpg">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>لمسه</title>
+
+<link rel="apple-touch-icon" href="icon.jpg">
 <link rel="icon" href="icon.jpg">
- <link rel="icon" type="image/jpeg" href="icon.jpg">
-    <style>
-      *{
+<link rel="icon" type="image/jpeg" href="icon.jpg">
+
+<style>
+
+*{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Cairo',sans-serif;
+    font-family:'Cairo','Tahoma',sans-serif;
 }
 
 body{
-    height:100vh;
+    min-height:100vh;
     overflow:hidden;
+
     background:
-    linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
+    linear-gradient(
+        rgba(0,0,0,0.48),
+        rgba(0,0,0,0.48)
+    ),
     url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop");
+
     background-size:cover;
     background-position:center;
+
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
-/* جميع الشاشات */
+/* =========================
+   الشاشات
+========================= */
+
 .screen{
+
     display:none !important;
+
     width:95%;
     max-width:420px;
+
     padding:30px;
+
     border-radius:30px;
+
     background:rgba(255,255,255,0.08);
+
     backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,0.1);
-    box-shadow:0 8px 32px rgba(0,0,0,0.35);
+    -webkit-backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.35);
+
     animation:show 0.4s ease;
 }
 
@@ -48,194 +74,670 @@ body{
 }
 
 @keyframes show{
+
     from{
         opacity:0;
         transform:translateY(20px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
-/* العنوان */
-h2,h3{
+/* =========================
+   العناوين
+========================= */
+
+h2,
+h3{
+
     color:white;
     text-align:center;
+
     margin-bottom:10px;
+
     font-size:28px;
+
+}
+
+h3{
+    font-size:20px;
+    margin:0;
 }
 
 p{
+
     color:#ddd;
+
     text-align:center;
+
     margin-bottom:18px;
+
     line-height:1.6;
+
 }
 
-/* الإدخال */
+/* =========================
+   الإدخالات
+========================= */
+
 input{
+
     width:100%;
+
     padding:15px;
+
     border:none;
     outline:none;
+
     border-radius:18px;
+
     background:rgba(255,255,255,0.1);
+
     color:white;
+
     font-size:16px;
+
     margin-bottom:15px;
+
     backdrop-filter:blur(10px);
+
 }
 
 input::placeholder{
     color:#ccc;
 }
 
-/* الأزرار */
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:18px;
-    background:linear-gradient(45deg,#00c6ff,#0072ff);
-    color:white;
-    font-size:16px;
-    font-weight:bold;
+input[type="file"]{
     cursor:pointer;
+}
+
+/* =========================
+   الأزرار
+========================= */
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #00c6ff,
+            #0072ff
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
     transition:0.3s;
+
     margin-bottom:12px;
-    box-shadow:0 4px 15px rgba(0,114,255,0.4);
+
+    box-shadow:
+        0 4px 15px rgba(0,114,255,0.4);
+
 }
 
 button:hover{
-    transform:translateY(-2px) scale(1.02);
+
+    transform:
+        translateY(-2px)
+        scale(1.02);
+
+}
+
+button:active{
+    transform:scale(0.98);
 }
 
 button.secondary{
-    background:linear-gradient(45deg,#ff416c,#ff4b2b);
-    box-shadow:0 4px 15px rgba(255,75,43,0.4);
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff416c,
+            #ff4b2b
+        );
+
+    box-shadow:
+        0 4px 15px rgba(255,75,43,0.4);
+
 }
 
-/* شاشة المحادثة */
+/* =========================
+   شاشة المحادثة
+========================= */
+
 #chatScreen{
+
     width:100%;
     height:100vh;
+
     max-width:100%;
+
     border-radius:0;
+
     padding:0;
+
     background:none;
+
 }
 
 #chatScreen.active{
+
     display:flex !important;
+
     flex-direction:column;
+
 }
 
-/* الهيدر */
+/* =========================
+   الهيدر
+========================= */
+
 .header{
-    height:70px;
-    background:rgba(0,0,0,0.35);
+
+    min-height:70px;
+
+    background:
+        rgba(0,0,0,0.35);
+
     backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
-    padding:0 20px;
+
+    padding:
+        0 20px;
+
     color:white;
-    border-bottom:1px solid rgba(255,255,255,0.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+
 }
 
-/* الرسائل */
+.room-number{
+    font-weight:bold;
+    color:#00c6ff;
+}
+
+/* =========================
+   الرسائل
+========================= */
+
 .chat-container{
+
     flex:1;
+
     overflow-y:auto;
+
     padding:20px;
+
     display:flex;
+
     flex-direction:column;
+
     gap:12px;
+
 }
 
-/* الرسالة */
+/* =========================
+   الرسالة
+========================= */
+
 .message{
+
     max-width:75%;
+
     padding:14px 16px;
+
     border-radius:20px;
-    animation:fadeIn 0.3s ease;
+
+    animation:
+        fadeIn 0.3s ease;
+
     position:relative;
+
     backdrop-filter:blur(10px);
+
+    word-wrap:break-word;
+
+    overflow-wrap:anywhere;
+
 }
 
 .message.sent{
+
     align-self:flex-end;
-    background:linear-gradient(45deg,#00b09b,#96c93d);
+
+    background:
+        linear-gradient(
+            45deg,
+            #00b09b,
+            #96c93d
+        );
+
     color:white;
+
     border-bottom-right-radius:5px;
+
 }
 
 .message.received{
+
     align-self:flex-start;
-    background:rgba(255,255,255,0.15);
+
+    background:
+        rgba(255,255,255,0.15);
+
     color:white;
+
     border-bottom-left-radius:5px;
+
 }
 
-/* اسم المستخدم */
+/* =========================
+   اسم المستخدم
+========================= */
+
 .username{
+
     font-size:11px;
+
     color:#ffe082;
+
     margin-bottom:5px;
+
     font-weight:bold;
+
 }
 
-/* الكتابة */
+/* =========================
+   منطقة الكتابة
+========================= */
+
 .input-area{
+
     padding:12px;
+
     display:flex;
+
     gap:10px;
-    background:rgba(0,0,0,0.35);
+
+    background:
+        rgba(0,0,0,0.35);
+
     backdrop-filter:blur(20px);
+
+    -webkit-backdrop-filter:blur(20px);
+
 }
 
 .input-area input{
+
     flex:1;
+
     margin:0;
+
     border-radius:30px;
-    padding:15px 20px;
+
+    padding:
+        15px 20px;
+
 }
 
 .input-area button{
+
     width:auto;
+
+    min-width:90px;
+
     border-radius:30px;
-    padding:0 25px;
+
+    padding:
+        0 25px;
+
     margin:0;
+
 }
 
-/* سكرول */
+/* =========================
+   السكرول
+========================= */
+
 .chat-container::-webkit-scrollbar{
     width:5px;
 }
 
 .chat-container::-webkit-scrollbar-thumb{
-    background:rgba(255,255,255,0.2);
+
+    background:
+        rgba(255,255,255,0.2);
+
     border-radius:10px;
+
 }
 
-/* الحركة */
+/* =========================
+   الحركة
+========================= */
+
 @keyframes fadeIn{
+
     from{
+
         opacity:0;
-        transform:translateY(10px);
+
+        transform:
+            translateY(10px);
+
     }
+
     to{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+            translateY(0);
+
     }
+
 }
-    </style>
-    
-    <!-- استدعاء مكتبات Firebase المستقرة -->
+
+/* =========================
+   الصورة الشخصية
+========================= */
+
+.profile-preview{
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    display:none;
+
+    margin:
+        0 auto 15px;
+
+    border:
+        3px solid rgba(255,255,255,0.4);
+
+}
+
+/* =========================
+   الجوال
+========================= */
+
+@media(max-width:500px){
+
+    .screen{
+        padding:25px;
+    }
+
+    .message{
+        max-width:85%;
+    }
+
+    .header{
+        padding:0 12px;
+    }
+
+    .header h3{
+        font-size:17px;
+    }
+
+    .input-area{
+        padding:8px;
+    }
+
+    .input-area button{
+        min-width:75px;
+        padding:0 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ==================================================
+     شاشة الاسم
+================================================== -->
+
+<div class="screen active" id="nameScreen">
+
+    <h2>لمسه</h2>
+
+    <p>
+        أدخل اسمك المستعار لبدء المحادثة
+    </p>
+
+    <img
+        id="profilePreview"
+        class="profile-preview"
+        alt="الصورة الشخصية"
+    >
+
+    <input
+        type="text"
+        id="usernameInput"
+        placeholder="اكتب اسمك هنا..."
+        maxlength="30"
+        autocomplete="off"
+    >
+
+    <input
+        type="file"
+        id="profileImage"
+        accept="image/*"
+        style="
+            margin-bottom:15px;
+            color:white;
+        "
+    >
+
+    <button
+        type="button"
+        onclick="saveName()"
+    >
+        استمرار
+    </button>
+
+</div>
+
+
+<!-- ==================================================
+     شاشة الخيارات
+================================================== -->
+
+<div
+    class="screen"
+    id="optionsScreen"
+>
+
+    <h2>خيارات المحادثة</h2>
+
+    <p>
+        اختر الإجراء المطلوب للبدء:
+    </p>
+
+    <button
+        type="button"
+        onclick="showRoomScreen('create')"
+    >
+        إنشاء محادثة جديدة
+    </button>
+
+    <button
+        type="button"
+        class="secondary"
+        onclick="showRoomScreen('join')"
+    >
+        الانضمام إلى محادثة
+    </button>
+
+    <button
+        type="button"
+        onclick="changeName()"
+        style="
+            background:rgba(255,255,255,0.15);
+            box-shadow:none;
+        "
+    >
+        تغيير الاسم
+    </button>
+
+</div>
+
+
+<!-- ==================================================
+     شاشة الغرفة
+================================================== -->
+
+<div
+    class="screen"
+    id="roomScreen"
+>
+
+    <h2 id="roomTitle">
+        غرفة المحادثة
+    </h2>
+
+    <p id="roomDesc">
+        أدخل رمزاً مكوناً من 4 أرقام
+    </p>
+
+    <input
+        type="text"
+        id="roomCodeInput"
+        placeholder="1234"
+        inputmode="numeric"
+        maxlength="4"
+        autocomplete="off"
+    >
+
+    <p
+        id="creatorInfo"
+        style="
+            color:#27ae60;
+            font-weight:bold;
+            margin-bottom:15px;
+            display:none;
+        "
+    ></p>
+
+    <button
+        type="button"
+        id="roomBtn"
+        onclick="processRoomAction()"
+    >
+        تأكيد
+    </button>
+
+    <button
+        type="button"
+        class="secondary"
+        onclick="switchScreen('optionsScreen')"
+    >
+        رجوع
+    </button>
+
+</div>
+
+
+<!-- ==================================================
+     شاشة المحادثة
+================================================== -->
+
+<div
+    class="screen"
+    id="chatScreen"
+>
+
+    <div class="header">
+
+        <h3>
+            لمسه
+        </h3>
+
+        <div>
+            غرفة:
+            <span
+                id="activeRoomCode"
+                class="room-number"
+            >
+                0000
+            </span>
+        </div>
+
+    </div>
+
+
+    <div
+        class="chat-container"
+        id="chatContainer"
+    ></div>
+
+
+    <div class="input-area">
+
+        <input
+            type="text"
+            id="messageInput"
+            placeholder="اكتب رسالتك هنا..."
+            maxlength="1000"
+            autocomplete="off"
+        >
+
+        <button
+            type="button"
+            onclick="sendMessage()"
+        >
+            إرسال
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     Firebase
+================================================== -->
+
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
 import {
     getDatabase,
@@ -243,324 +745,893 @@ import {
     push,
     set,
     get,
-    child,
-    onChildAdded
-}
+    onChildAdded,
+    off
+} from
+"https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+/* =========================================
+   إعداد Firebase
+========================================= */
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyDhY1_FeJ53ZUpZlszD9vKkjyMz9HOgYN8",
+    apiKey:
+        "AIzaSyDhY1_FeJ53ZUpZlszD9vKkjyMz9HOgYN8",
 
-    authDomain: "wats-41f58.firebaseapp.com",
+    authDomain:
+        "wats-41f58.firebaseapp.com",
 
-    databaseURL: "https://wats-41f58-default-rtdb.firebaseio.com",
+    databaseURL:
+        "https://wats-41f58-default-rtdb.firebaseio.com",
 
-    projectId: "wats-41f58",
+    projectId:
+        "wats-41f58",
 
-    storageBucket: "wats-41f58.appspot.com",
+    storageBucket:
+        "wats-41f58.firebasestorage.app",
 
-    messagingSenderId: "277505138255",
+    messagingSenderId:
+        "277505138255",
 
-    appId: "1:277505138255:web:b7260eb4c7a672141ed43a"
+    appId:
+        "1:277505138255:web:b7260eb4c7a672141ed43a"
 
 };
 
-const app = initializeApp(firebaseConfig);
 
-const db = getDatabase(app);
+/* =========================================
+   تشغيل Firebase مرة واحدة فقط
+========================================= */
 
-window.myUsername = "";
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+
+/* =========================================
+   المتغيرات العامة
+========================================= */
+
+window.myUsername =
+    localStorage.getItem("chatUsername") || "";
+
+window.myProfileImage =
+    localStorage.getItem("chatProfile") || "";
+
 window.currentRoomCode = "";
+
 window.currentActionType = "";
-// فحص الاسم المحفوظ
-window.onload = function() {
 
-    const savedName =
-        localStorage.getItem(
-            "chatUsername"
-        );
+window.currentMessagesRef = null;
 
-    if(savedName) {
 
-        window.myUsername =
-            savedName;
+/* =========================================
+   تبديل الشاشات
+========================================= */
 
-        document.getElementById(
-            'usernameInput'
-        ).value = savedName;
+window.switchScreen =
+function(id){
 
-        switchScreen(
-            'optionsScreen'
-        );
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen => {
+
+            screen.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(id);
+
+
+    if(target){
+
+        target.classList.add("active");
 
     }
 
 };
-// تبديل الصفحات
-window.switchScreen = function(id) {
-
-    document.querySelectorAll('.screen')
-    .forEach(screen => {
-
-        screen.classList.remove('active');
-
-    });
-
-    document.getElementById(id)
-    .classList.add('active');
-
-};
-
-// حفظ الاسم
 
 
-   window.saveName = function() {
+/* =========================================
+   تحميل البيانات عند فتح الصفحة
+========================================= */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        const savedName =
+            localStorage.getItem(
+                "chatUsername"
+            );
+
+
+        const savedProfile =
+            localStorage.getItem(
+                "chatProfile"
+            );
+
+
+        if(savedName){
+
+            window.myUsername =
+                savedName;
+
+            document.getElementById(
+                "usernameInput"
+            ).value =
+                savedName;
+
+
+            switchScreen(
+                "optionsScreen"
+            );
+
+        }
+
+
+        if(savedProfile){
+
+            const preview =
+                document.getElementById(
+                    "profilePreview"
+                );
+
+            preview.src =
+                savedProfile;
+
+            preview.style.display =
+                "block";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   معاينة الصورة
+========================================= */
+
+document
+    .getElementById("profileImage")
+    .addEventListener(
+        "change",
+        function(){
+
+            const file =
+                this.files[0];
+
+            if(!file) return;
+
+
+            if(!file.type.startsWith("image/")){
+
+                alert(
+                    "اختر ملف صورة فقط"
+                );
+
+                this.value = "";
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(e){
+
+                    const preview =
+                        document.getElementById(
+                            "profilePreview"
+                        );
+
+                    preview.src =
+                        e.target.result;
+
+                    preview.style.display =
+                        "block";
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+
+/* =========================================
+   حفظ الاسم
+========================================= */
+
+window.saveName =
+function(){
+
+    const input =
+        document.getElementById(
+            "usernameInput"
+        );
+
 
     const name =
-        document.getElementById('usernameInput')
-        .value.trim();
+        input.value.trim();
 
-    if(name === "") {
 
-        alert("اكتب اسمك");
+    const file =
+        document.getElementById(
+            "profileImage"
+        ).files[0];
+
+
+    if(name === ""){
+
+        alert(
+            "اكتب اسمك أولاً"
+        );
+
+        input.focus();
 
         return;
 
     }
 
-    // حفظ الاسم
+
+    if(name.length < 2){
+
+        alert(
+            "الاسم يجب أن يكون حرفين على الأقل"
+        );
+
+        return;
+
+    }
+
+
     localStorage.setItem(
         "chatUsername",
         name
     );
 
-    window.myUsername = name;
 
-    switchScreen('optionsScreen');
+    window.myUsername =
+        name;
+
+
+    /* إذا اختار صورة */
+
+    if(file){
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(e){
+
+                window.myProfileImage =
+                    e.target.result;
+
+
+                localStorage.setItem(
+                    "chatProfile",
+                    e.target.result
+                );
+
+
+                switchScreen(
+                    "optionsScreen"
+                );
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+
+    else{
+
+        switchScreen(
+            "optionsScreen"
+        );
+
+    }
 
 };
 
-// فتح شاشة الغرف
-window.showRoomScreen = function(action) {
 
-    currentActionType = action;
+/* =========================================
+   تغيير الاسم
+========================================= */
 
-    document.getElementById('roomCodeInput')
-    .value = "";
+window.changeName =
+function(){
 
-    switchScreen('roomScreen');
+    switchScreen(
+        "nameScreen"
+    );
 
 };
 
-// إنشاء أو دخول غرفة
-window.processRoomAction = async function() {
+
+/* =========================================
+   شاشة إنشاء / دخول الغرفة
+========================================= */
+
+window.showRoomScreen =
+function(type){
+
+    window.currentActionType =
+        type;
+
+
+    const title =
+        document.getElementById(
+            "roomTitle"
+        );
+
+
+    const desc =
+        document.getElementById(
+            "roomDesc"
+        );
+
+
+    const button =
+        document.getElementById(
+            "roomBtn"
+        );
+
+
+    const input =
+        document.getElementById(
+            "roomCodeInput"
+        );
+
+
+    const creatorInfo =
+        document.getElementById(
+            "creatorInfo"
+        );
+
+
+    input.value = "";
+
+    creatorInfo.style.display =
+        "none";
+
+
+    if(type === "create"){
+
+        title.innerText =
+            "إنشاء محادثة جديدة";
+
+        desc.innerText =
+            "اختر رمزاً مكوناً من 4 أرقام";
+
+        button.innerText =
+            "إنشاء المحادثة";
+
+    }
+
+    else{
+
+        title.innerText =
+            "الانضمام إلى محادثة";
+
+        desc.innerText =
+            "أدخل رمز المحادثة المكون من 4 أرقام";
+
+        button.innerText =
+            "دخول المحادثة";
+
+    }
+
+
+    switchScreen(
+        "roomScreen"
+    );
+
+
+    setTimeout(
+        () => input.focus(),
+        200
+    );
+
+};
+
+
+/* =========================================
+   السماح بالأرقام فقط
+========================================= */
+
+document
+    .getElementById("roomCodeInput")
+    .addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                .replace(/\D/g,"")
+                .slice(0,4);
+
+        }
+    );
+
+
+/* =========================================
+   إنشاء أو دخول غرفة
+========================================= */
+
+window.processRoomAction =
+async function(){
+
+    const input =
+        document.getElementById(
+            "roomCodeInput"
+        );
+
 
     const code =
-        document.getElementById('roomCodeInput')
-        .value.trim();
+        input.value.trim();
 
-    if(code.length < 4) {
 
-        alert("الكود يجب أن يكون 4 أرقام");
+    if(!/^\d{4}$/.test(code)){
+
+        alert(
+            "يجب أن يكون رمز الغرفة 4 أرقام بالضبط"
+        );
+
+        input.focus();
 
         return;
 
     }
 
-    currentRoomCode = code;
 
-    // إنشاء غرفة
-    if(currentActionType === "create") {
+    if(!window.myUsername){
 
-        await set(
-            ref(db, 'rooms/' + code),
-            {
-                creator: myUsername
-            }
+        alert(
+            "يجب كتابة الاسم أولاً"
         );
 
-        enterChat(code);
+        switchScreen(
+            "nameScreen"
+        );
+
+        return;
 
     }
 
-    // دخول غرفة
-    else {
 
-        const snapshot =
-            await get(
-                child(
-                    ref(db),
-                    'rooms/' + code
-                )
+    const button =
+        document.getElementById(
+            "roomBtn"
+        );
+
+
+    button.disabled =
+        true;
+
+    button.innerText =
+        "جارٍ المعالجة...";
+
+
+    try{
+
+        const roomRef =
+            ref(
+                db,
+                "rooms/" + code
             );
 
-        if(!snapshot.exists()) {
 
-            alert("الغرفة غير موجودة");
+        const snapshot =
+            await get(roomRef);
 
-            return;
+
+        /* ==========================
+           إنشاء غرفة
+        ========================== */
+
+        if(
+            window.currentActionType
+            ===
+            "create"
+        ){
+
+            if(snapshot.exists()){
+
+                alert(
+                    "هذه الغرفة موجودة مسبقاً، اختر رمزاً آخر."
+                );
+
+                input.focus();
+
+                return;
+
+            }
+
+
+            await set(
+                roomRef,
+                {
+
+                    creator:
+                        window.myUsername,
+
+                    createdAt:
+                        Date.now()
+
+                }
+            );
+
+
+            enterChat(code);
 
         }
 
-        enterChat(code);
+
+        /* ==========================
+           دخول غرفة
+        ========================== */
+
+        else{
+
+            if(!snapshot.exists()){
+
+                alert(
+                    "الغرفة غير موجودة."
+                );
+
+                return;
+
+            }
+
+
+            enterChat(code);
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "حدث خطأ أثناء الاتصال بقاعدة البيانات."
+        );
+
+    }
+
+    finally{
+
+        button.disabled =
+            false;
+
+        button.innerText =
+            window.currentActionType === "create"
+            ?
+            "إنشاء المحادثة"
+            :
+            "دخول المحادثة";
 
     }
 
 };
 
-// دخول الشات
-window.enterChat = function(code) {
 
-    document.getElementById('activeRoomCode')
-    .innerText = code;
+/* =========================================
+   الدخول إلى المحادثة
+========================================= */
 
-    switchScreen('chatScreen');
+window.enterChat =
+function(code){
 
-    document.getElementById('chatContainer')
-    .innerHTML = "";
+    window.currentRoomCode =
+        code;
+
+
+    document.getElementById(
+        "activeRoomCode"
+    ).innerText =
+        code;
+
+
+    const container =
+        document.getElementById(
+            "chatContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    /*
+       إزالة المستمع القديم
+       حتى لا تتكرر الرسائل
+    */
+
+    if(window.currentMessagesRef){
+
+        off(
+            window.currentMessagesRef
+        );
+
+    }
+
+
+    const messagesRef =
+        ref(
+            db,
+            "rooms/" +
+            code +
+            "/messages"
+        );
+
+
+    window.currentMessagesRef =
+        messagesRef;
+
 
     onChildAdded(
-        ref(db, 'rooms/' + code + '/messages'),
+        messagesRef,
+        function(snapshot){
 
-        (snapshot) => {
+            const msg =
+                snapshot.val();
 
-            const msg = snapshot.val();
+
+            if(!msg) return;
+
 
             appendMessageToDOM(
-                msg.sender,
-                msg.text
+                msg.sender || "مستخدم",
+                msg.text || ""
             );
 
         }
     );
 
+
+    switchScreen(
+        "chatScreen"
+    );
+
+
+    setTimeout(
+        function(){
+
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .focus();
+
+        },
+        200
+    );
+
 };
 
-// إضافة رسالة للشاشة
-window.appendMessageToDOM = function(sender, text) {
+
+/* =========================================
+   إضافة رسالة إلى الشاشة
+========================================= */
+
+window.appendMessageToDOM =
+function(sender,text){
 
     const container =
-        document.getElementById('chatContainer');
+        document.getElementById(
+            "chatContainer"
+        );
+
 
     const div =
-        document.createElement('div');
+        document.createElement(
+            "div"
+        );
 
-    div.className =
-        sender === myUsername
-        ? 'message sent'
-        : 'message received';
 
-    div.innerHTML = `
-        <div class="username">${sender}</div>
-        <div>${text}</div>
-    `;
+    if(
+        sender ===
+        window.myUsername
+    ){
 
-    container.appendChild(div);
+        div.className =
+            "message sent";
+
+    }
+
+    else{
+
+        div.className =
+            "message received";
+
+    }
+
+
+    const username =
+        document.createElement(
+            "div"
+        );
+
+    username.className =
+        "username";
+
+    username.textContent =
+        sender;
+
+
+    const messageText =
+        document.createElement(
+            "div"
+        );
+
+    messageText.textContent =
+        text;
+
+
+    div.appendChild(
+        username
+    );
+
+    div.appendChild(
+        messageText
+    );
+
+
+    container.appendChild(
+        div
+    );
+
 
     container.scrollTop =
         container.scrollHeight;
 
 };
 
-// إرسال رسالة
-window.sendMessage = async function() {
+
+/* =========================================
+   إرسال رسالة
+========================================= */
+
+window.sendMessage =
+async function(){
 
     const input =
-        document.getElementById('messageInput');
+        document.getElementById(
+            "messageInput"
+        );
+
 
     const text =
         input.value.trim();
 
-    if(text === "") return;
 
-    await push(
-        ref(
-            db,
-            'rooms/' + currentRoomCode + '/messages'
-        ),
-        {
-            sender: myUsername,
-            text: text
-        }
-    );
+    if(text === ""){
 
-    input.value = "";
+        return;
+
+    }
+
+
+    if(!window.currentRoomCode){
+
+        alert(
+            "لم تدخل إلى غرفة بعد."
+        );
+
+        return;
+
+    }
+
+
+    if(!window.myUsername){
+
+        alert(
+            "الاسم غير موجود، أعد كتابة اسمك."
+        );
+
+        return;
+
+    }
+
+
+    input.disabled =
+        true;
+
+
+    try{
+
+        await push(
+            ref(
+                db,
+                "rooms/" +
+                window.currentRoomCode +
+                "/messages"
+            ),
+            {
+
+                sender:
+                    window.myUsername,
+
+                text:
+                    text,
+
+                timestamp:
+                    Date.now()
+
+            }
+        );
+
+
+        input.value = "";
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "تعذر إرسال الرسالة."
+        );
+
+    }
+
+    finally{
+
+        input.disabled =
+            false;
+
+        input.focus();
+
+    }
 
 };
 
-</script>
-</head>
-<body>
 
-    <!-- 1. شاشة الاسم -->
-    <div class="screen active" id="nameScreen">
-        <h2>برمجاتي</h2>
-        <p>أدخل اسمك المستعار لبدء المحادثة</p>
-        <input type="text" id="usernameInput" placeholder="اكتب اسمك هنا...">
-        <button type="button" onclick="saveName()">استمرار</button>
-    </div>
+/* =========================================
+   زر Enter لإرسال الرسالة
+========================================= */
 
-    <!-- 2. خيارات المحادثة -->
-    <div class="screen" id="optionsScreen">
-        <h2>خيارات المحادثة</h2>
-        <p>اختر الإجراء المطلوب للبدء:</p>
-        <button type="button" onclick="showRoomScreen('create')">إنشاء محادثة جديدة</button>
-        <button type="button" class="secondary" onclick="showRoomScreen('join')">الانضمام إلى محادثة</button>
-    </div>
+document
+    .getElementById("messageInput")
+    .addEventListener(
+        "keydown",
+        function(event){
 
-    <!-- 3. شاشة الرمز -->
-    <div class="screen" id="roomScreen">
-        <h2 id="roomTitle">غرفة المحادثة</h2>
-        <p id="roomDesc">أدخل رمزاً مكوناً من 4 أرقام</p>
-        <input type="text" id="roomCodeInput" placeholder="1234">
-        <p id="creatorInfo" style="color: #27ae60; font-weight: bold; margin-bottom: 15px; display: none;"></p>
-        <button type="button" id="roomBtn" onclick="processRoomAction()">تأكيد</button>
-        <button type="button" class="secondary" style="background-color: #777;" onclick="switchScreen('optionsScreen')">رجوع</button>
-    </div>
+            if(
+                event.key ===
+                "Enter"
+            ){
 
-    <!-- 4. شاشة الشات والرسائل -->
-    <div class="screen" id="chatScreen">
-        <div class="header">
-            <h3>برمجاتي للاتصال</h3>
-            <div>غرفة: <span id="activeRoomCode" style="font-weight: bold;">0000</span></div>
-        </div>
-        <div class="chat-container" id="chatContainer"></div>
-        <div class="input-area">
-            <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." onkeypress="if(event.key==='Enter') sendMessage()">
-            <button type="button" onclick="sendMessage()">إرسال</button>
-        </div>
-    </div>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+                event.preventDefault();
 
-  // معلومات الفايربيس الخاصة بك
-  const firebaseConfig = {
-    apiKey: "AIzaSyDhY1_FeJ53ZUpZlszD9vKkjyMz9HOgYN8",
-    authDomain: "wats-41f58.firebaseapp.com",
-    databaseURL: "https://wats-41f58-default-rtdb.firebaseio.com",
-    projectId: "wats-41f58",
-    storageBucket: "wats-41f58.firebasestorage.app",
-    messagingSenderId: "277505138255",
-    appId: "1:277505138255:web:b7260eb4c7a672141ed43a"
-  };
+                sendMessage();
 
-  // تشغيل قاعدة البيانات
-  const app = initializeApp(firebaseConfig);
-  const database = getDatabase(app);
+            }
 
-  // هذا الجزء السحري يترجم كودك القديم (db.ref) إلى الطريقة الجديدة تلقائياً
-  window.db = {
-    ref: function(path) {
-      return {
-        push: function(data) {
-          return push(ref(database, path), data);
         }
-      };
-    }
-  };
+    );
+
 </script>
+
 </body>
 </html>
+```
