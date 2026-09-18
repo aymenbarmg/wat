@@ -41,10 +41,6 @@ body{
     align-items:center;
 }
 
-/* =========================
-   الشاشات
-========================= */
-
 .screen{
     display:none !important;
 
@@ -84,10 +80,6 @@ body{
     }
 }
 
-/* =========================
-   العناوين
-========================= */
-
 h2,
 h3{
     color:white;
@@ -107,10 +99,6 @@ p{
     margin-bottom:18px;
     line-height:1.6;
 }
-
-/* =========================
-   الإدخالات
-========================= */
 
 input{
     width:100%;
@@ -139,10 +127,6 @@ input::placeholder{
 input[type="file"]{
     cursor:pointer;
 }
-
-/* =========================
-   الأزرار
-========================= */
 
 button{
     width:100%;
@@ -185,6 +169,7 @@ button:active{
 }
 
 button.secondary{
+
     background:
         linear-gradient(
             45deg,
@@ -196,11 +181,8 @@ button.secondary{
         0 4px 15px rgba(255,75,43,0.4);
 }
 
-/* =========================
-   شاشة المحادثة
-========================= */
-
 #chatScreen{
+
     width:100%;
     height:100vh;
 
@@ -214,15 +196,14 @@ button.secondary{
 }
 
 #chatScreen.active{
+
     display:flex !important;
+
     flex-direction:column;
 }
 
-/* =========================
-   الهيدر
-========================= */
-
 .header{
+
     min-height:70px;
 
     background:
@@ -257,10 +238,10 @@ button.secondary{
     color:#00c6ff;
 }
 
-/* زر الرجوع */
-
 .back-button{
+
     width:auto !important;
+
     min-width:78px;
 
     padding:10px 14px !important;
@@ -279,16 +260,8 @@ button.secondary{
     white-space:nowrap;
 }
 
-.back-button:hover{
-    background:
-        rgba(255,255,255,0.25) !important;
-}
-
-/* =========================
-   الرسائل
-========================= */
-
 .chat-container{
+
     flex:1;
 
     overflow-y:auto;
@@ -303,13 +276,15 @@ button.secondary{
 }
 
 .message{
+
     max-width:75%;
 
     padding:14px 16px;
 
     border-radius:20px;
 
-    animation:fadeIn 0.3s ease;
+    animation:
+        fadeIn 0.3s ease;
 
     position:relative;
 
@@ -321,6 +296,7 @@ button.secondary{
 }
 
 .message.sent{
+
     align-self:flex-end;
 
     background:
@@ -336,6 +312,7 @@ button.secondary{
 }
 
 .message.received{
+
     align-self:flex-start;
 
     background:
@@ -346,11 +323,8 @@ button.secondary{
     border-bottom-left-radius:5px;
 }
 
-/* =========================
-   اسم المستخدم
-========================= */
-
 .username{
+
     font-size:11px;
 
     color:#ffe082;
@@ -360,11 +334,8 @@ button.secondary{
     font-weight:bold;
 }
 
-/* =========================
-   الكتابة
-========================= */
-
 .input-area{
+
     padding:12px;
 
     display:flex;
@@ -380,6 +351,7 @@ button.secondary{
 }
 
 .input-area input{
+
     flex:1;
 
     margin:0;
@@ -390,6 +362,7 @@ button.secondary{
 }
 
 .input-area button{
+
     width:auto;
 
     min-width:90px;
@@ -401,24 +374,17 @@ button.secondary{
     margin:0;
 }
 
-/* =========================
-   السكرول
-========================= */
-
 .chat-container::-webkit-scrollbar{
     width:5px;
 }
 
 .chat-container::-webkit-scrollbar-thumb{
+
     background:
         rgba(255,255,255,0.2);
 
     border-radius:10px;
 }
-
-/* =========================
-   الحركة
-========================= */
 
 @keyframes fadeIn{
 
@@ -433,11 +399,8 @@ button.secondary{
     }
 }
 
-/* =========================
-   الصورة
-========================= */
-
 .profile-preview{
+
     width:70px;
     height:70px;
 
@@ -453,10 +416,6 @@ button.secondary{
         3px solid rgba(255,255,255,0.4);
 }
 
-/* =========================
-   الجوال
-========================= */
-
 @media(max-width:500px){
 
     .screen{
@@ -469,7 +428,6 @@ button.secondary{
 
     .header{
         padding:0 10px;
-        gap:5px;
     }
 
     .header h3{
@@ -478,12 +436,6 @@ button.secondary{
 
     .header > div{
         font-size:12px;
-    }
-
-    .back-button{
-        min-width:68px !important;
-        padding:9px 10px !important;
-        font-size:13px !important;
     }
 
     .input-area{
@@ -504,9 +456,7 @@ button.secondary{
 <body>
 
 
-<!-- ================================
-     شاشة الاسم
-================================ -->
+<!-- شاشة الاسم -->
 
 <div class="screen active" id="nameScreen">
 
@@ -534,10 +484,7 @@ button.secondary{
         type="file"
         id="profileImage"
         accept="image/*"
-        style="
-            margin-bottom:15px;
-            color:white;
-        "
+        style="margin-bottom:15px;color:white;"
     >
 
     <button
@@ -550,9 +497,7 @@ button.secondary{
 </div>
 
 
-<!-- ================================
-     شاشة الخيارات
-================================ -->
+<!-- الخيارات -->
 
 <div class="screen" id="optionsScreen">
 
@@ -591,9 +536,7 @@ button.secondary{
 </div>
 
 
-<!-- ================================
-     شاشة الغرفة
-================================ -->
+<!-- شاشة الرمز -->
 
 <div class="screen" id="roomScreen">
 
@@ -602,16 +545,17 @@ button.secondary{
     </h2>
 
     <p id="roomDesc">
-        أدخل رمزاً مكوناً من 4 أرقام
+        أدخل رمزاً مكوناً من 8 خانات
     </p>
 
     <input
         type="text"
         id="roomCodeInput"
-        placeholder="1234"
-        inputmode="numeric"
-        maxlength="4"
+        placeholder="A7K2P9X4"
+        maxlength="8"
         autocomplete="off"
+        autocapitalize="characters"
+        spellcheck="false"
     >
 
     <p
@@ -643,15 +587,11 @@ button.secondary{
 </div>
 
 
-<!-- ================================
-     شاشة المحادثة
-================================ -->
+<!-- شاشة المحادثة -->
 
 <div class="screen" id="chatScreen">
 
     <div class="header">
-
-        <!-- زر الرجوع الجديد -->
 
         <button
             type="button"
@@ -661,11 +601,9 @@ button.secondary{
             ← رجوع
         </button>
 
-
         <h3>
             لمسه
         </h3>
-
 
         <div>
             غرفة:
@@ -673,7 +611,7 @@ button.secondary{
                 id="activeRoomCode"
                 class="room-number"
             >
-                0000
+                --------
             </span>
         </div>
 
@@ -708,9 +646,7 @@ button.secondary{
 </div>
 
 
-<!-- ================================
-     Firebase
-================================ -->
+<!-- Firebase -->
 
 <script type="module">
 
@@ -719,7 +655,6 @@ import {
 }
 from
 "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
 
 import {
     getDatabase,
@@ -733,10 +668,6 @@ import {
 from
 "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-
-/* ================================
-   إعداد Firebase
-================================ */
 
 const firebaseConfig = {
 
@@ -764,18 +695,12 @@ const firebaseConfig = {
 };
 
 
-/* تشغيل Firebase مرة واحدة فقط */
-
 const app =
     initializeApp(firebaseConfig);
 
 const db =
     getDatabase(app);
 
-
-/* ================================
-   المتغيرات
-================================ */
 
 window.myUsername =
     localStorage.getItem("chatUsername") || "";
@@ -793,9 +718,7 @@ window.currentMessagesRef =
     null;
 
 
-/* ================================
-   تبديل الشاشات
-================================ */
+/* تبديل الشاشات */
 
 window.switchScreen =
 function(id){
@@ -808,23 +731,17 @@ function(id){
 
         });
 
-
     const target =
         document.getElementById(id);
 
-
     if(target){
-
         target.classList.add("active");
-
     }
 
 };
 
 
-/* ================================
-   تحميل الاسم
-================================ */
+/* تحميل الاسم */
 
 window.addEventListener(
     "load",
@@ -835,31 +752,26 @@ window.addEventListener(
                 "chatUsername"
             );
 
-
         const savedProfile =
             localStorage.getItem(
                 "chatProfile"
             );
-
 
         if(savedName){
 
             window.myUsername =
                 savedName;
 
-
             document.getElementById(
                 "usernameInput"
             ).value =
                 savedName;
-
 
             switchScreen(
                 "optionsScreen"
             );
 
         }
-
 
         if(savedProfile){
 
@@ -868,10 +780,8 @@ window.addEventListener(
                     "profilePreview"
                 );
 
-
             preview.src =
                 savedProfile;
-
 
             preview.style.display =
                 "block";
@@ -882,9 +792,7 @@ window.addEventListener(
 );
 
 
-/* ================================
-   معاينة الصورة
-================================ */
+/* معاينة الصورة */
 
 document
     .getElementById("profileImage")
@@ -895,9 +803,7 @@ document
             const file =
                 this.files[0];
 
-
             if(!file) return;
-
 
             if(!file.type.startsWith("image/")){
 
@@ -908,13 +814,10 @@ document
                 this.value = "";
 
                 return;
-
             }
-
 
             const reader =
                 new FileReader();
-
 
             reader.onload =
                 function(e){
@@ -924,16 +827,13 @@ document
                             "profilePreview"
                         );
 
-
                     preview.src =
                         e.target.result;
-
 
                     preview.style.display =
                         "block";
 
                 };
-
 
             reader.readAsDataURL(file);
 
@@ -941,9 +841,7 @@ document
     );
 
 
-/* ================================
-   حفظ الاسم
-================================ */
+/* حفظ الاسم */
 
 window.saveName =
 function(){
@@ -953,16 +851,13 @@ function(){
             "usernameInput"
         );
 
-
     const name =
         input.value.trim();
-
 
     const file =
         document.getElementById(
             "profileImage"
         ).files[0];
-
 
     if(name === ""){
 
@@ -973,9 +868,7 @@ function(){
         input.focus();
 
         return;
-
     }
-
 
     if(name.length < 2){
 
@@ -984,25 +877,20 @@ function(){
         );
 
         return;
-
     }
-
 
     localStorage.setItem(
         "chatUsername",
         name
     );
 
-
     window.myUsername =
         name;
-
 
     if(file){
 
         const reader =
             new FileReader();
-
 
         reader.onload =
             function(e){
@@ -1010,12 +898,10 @@ function(){
                 window.myProfileImage =
                     e.target.result;
 
-
                 localStorage.setItem(
                     "chatProfile",
                     e.target.result
                 );
-
 
                 switchScreen(
                     "optionsScreen"
@@ -1023,11 +909,9 @@ function(){
 
             };
 
-
         reader.readAsDataURL(file);
 
     }
-
     else{
 
         switchScreen(
@@ -1039,9 +923,7 @@ function(){
 };
 
 
-/* ================================
-   تغيير الاسم
-================================ */
+/* تغيير الاسم */
 
 window.changeName =
 function(){
@@ -1053,9 +935,7 @@ function(){
 };
 
 
-/* ================================
-   اختيار إنشاء / دخول
-================================ */
+/* شاشة إنشاء / دخول */
 
 window.showRoomScreen =
 function(type){
@@ -1063,42 +943,35 @@ function(type){
     window.currentActionType =
         type;
 
-
     const title =
         document.getElementById(
             "roomTitle"
         );
-
 
     const desc =
         document.getElementById(
             "roomDesc"
         );
 
-
     const button =
         document.getElementById(
             "roomBtn"
         );
-
 
     const input =
         document.getElementById(
             "roomCodeInput"
         );
 
-
     const creatorInfo =
         document.getElementById(
             "creatorInfo"
         );
 
-
     input.value = "";
 
     creatorInfo.style.display =
         "none";
-
 
     if(type === "create"){
 
@@ -1106,31 +979,28 @@ function(type){
             "إنشاء محادثة جديدة";
 
         desc.innerText =
-            "اختر رمزاً مكوناً من 4 أرقام";
+            "اكتب رمزاً من 8 أحرف وأرقام";
 
         button.innerText =
             "إنشاء المحادثة";
 
     }
-
     else{
 
         title.innerText =
             "الانضمام إلى محادثة";
 
         desc.innerText =
-            "أدخل رمز المحادثة المكون من 4 أرقام";
+            "أدخل رمز المحادثة المكون من 8 خانات";
 
         button.innerText =
             "دخول المحادثة";
 
     }
 
-
     switchScreen(
         "roomScreen"
     );
-
 
     setTimeout(
         () => input.focus(),
@@ -1140,9 +1010,11 @@ function(type){
 };
 
 
-/* ================================
-   أرقام رمز الغرفة فقط
-================================ */
+/* =====================================
+   رمز الغرفة:
+   8 خانات
+   أحرف إنجليزية + أرقام
+===================================== */
 
 document
     .getElementById("roomCodeInput")
@@ -1152,16 +1024,15 @@ document
 
             this.value =
                 this.value
-                .replace(/\D/g,"")
-                .slice(0,4);
+                .replace(/[^a-zA-Z0-9]/g,"")
+                .toUpperCase()
+                .slice(0,8);
 
         }
     );
 
 
-/* ================================
-   إنشاء / دخول
-================================ */
+/* إنشاء أو دخول الغرفة */
 
 window.processRoomAction =
 async function(){
@@ -1171,15 +1042,20 @@ async function(){
             "roomCodeInput"
         );
 
-
     const code =
-        input.value.trim();
+        input.value.trim().toUpperCase();
 
 
-    if(!/^\d{4}$/.test(code)){
+    /*
+       التحقق:
+       8 خانات بالضبط
+       أرقام أو أحرف إنجليزية فقط
+    */
+
+    if(!/^[A-Z0-9]{8}$/.test(code)){
 
         alert(
-            "يجب أن يكون رمز الغرفة 4 أرقام بالضبط"
+            "رمز المحادثة يجب أن يتكون من 8 خانات من الأحرف الإنجليزية والأرقام فقط."
         );
 
         input.focus();
@@ -1209,7 +1085,6 @@ async function(){
             "roomBtn"
         );
 
-
     button.disabled =
         true;
 
@@ -1230,7 +1105,7 @@ async function(){
             await get(roomRef);
 
 
-        /* إنشاء غرفة */
+        /* إنشاء */
 
         if(
             window.currentActionType
@@ -1241,7 +1116,7 @@ async function(){
             if(snapshot.exists()){
 
                 alert(
-                    "هذه الغرفة موجودة مسبقاً، اختر رمزاً آخر."
+                    "هذا الرمز مستخدم بالفعل، اختر رمزاً آخر."
                 );
 
                 return;
@@ -1268,14 +1143,14 @@ async function(){
         }
 
 
-        /* دخول غرفة */
+        /* دخول */
 
         else{
 
             if(!snapshot.exists()){
 
                 alert(
-                    "الغرفة غير موجودة."
+                    "المحادثة غير موجودة. تأكد من الرمز."
                 );
 
                 return;
@@ -1303,11 +1178,10 @@ async function(){
         ){
 
             alert(
-                "Firebase رفض الوصول إلى قاعدة البيانات. تأكد من Rules."
+                "Firebase رفض الوصول إلى قاعدة البيانات. المشكلة من صلاحيات Firebase Rules."
             );
 
         }
-
         else{
 
             alert(
@@ -1323,7 +1197,6 @@ async function(){
         button.disabled =
             false;
 
-
         button.innerText =
             window.currentActionType === "create"
             ?
@@ -1336,9 +1209,7 @@ async function(){
 };
 
 
-/* ================================
-   دخول الشات
-================================ */
+/* دخول المحادثة */
 
 window.enterChat =
 function(code){
@@ -1358,12 +1229,9 @@ function(code){
             "chatContainer"
         );
 
-
     container.innerHTML =
         "";
 
-
-    /* إزالة المستمع السابق */
 
     if(window.currentMessagesRef){
 
@@ -1397,9 +1265,7 @@ function(code){
             const msg =
                 snapshot.val();
 
-
             if(!msg) return;
-
 
             appendMessageToDOM(
                 msg.sender ||
@@ -1434,14 +1300,10 @@ function(code){
 };
 
 
-/* ================================
-   زر الرجوع
-================================ */
+/* زر الرجوع */
 
 window.leaveChat =
 function(){
-
-    /* إيقاف استقبال الرسائل */
 
     if(window.currentMessagesRef){
 
@@ -1455,8 +1317,6 @@ function(){
     }
 
 
-    /* تنظيف الشاشة */
-
     document.getElementById(
         "chatContainer"
     ).innerHTML =
@@ -1469,8 +1329,6 @@ function(){
         "";
 
 
-    /* تصفير الغرفة الحالية */
-
     window.currentRoomCode =
         "";
 
@@ -1478,10 +1336,8 @@ function(){
     document.getElementById(
         "activeRoomCode"
     ).innerText =
-        "0000";
+        "--------";
 
-
-    /* الرجوع للخيارات */
 
     switchScreen(
         "optionsScreen"
@@ -1490,9 +1346,7 @@ function(){
 };
 
 
-/* ================================
-   إضافة رسالة
-================================ */
+/* إضافة رسالة */
 
 window.appendMessageToDOM =
 function(sender,text){
@@ -1509,22 +1363,12 @@ function(sender,text){
         );
 
 
-    if(
-        sender ===
-        window.myUsername
-    ){
-
-        div.className =
-            "message sent";
-
-    }
-
-    else{
-
-        div.className =
-            "message received";
-
-    }
+    div.className =
+        sender === window.myUsername
+        ?
+        "message sent"
+        :
+        "message received";
 
 
     const username =
@@ -1532,10 +1376,8 @@ function(sender,text){
             "div"
         );
 
-
     username.className =
         "username";
-
 
     username.textContent =
         sender;
@@ -1546,7 +1388,6 @@ function(sender,text){
             "div"
         );
 
-
     messageText.textContent =
         text;
 
@@ -1554,7 +1395,6 @@ function(sender,text){
     div.appendChild(
         username
     );
-
 
     div.appendChild(
         messageText
@@ -1572,9 +1412,7 @@ function(sender,text){
 };
 
 
-/* ================================
-   إرسال رسالة
-================================ */
+/* إرسال الرسالة */
 
 window.sendMessage =
 async function(){
@@ -1590,27 +1428,14 @@ async function(){
 
 
     if(text === ""){
-
         return;
-
     }
 
 
     if(!window.currentRoomCode){
 
         alert(
-            "لم تدخل إلى غرفة بعد."
-        );
-
-        return;
-
-    }
-
-
-    if(!window.myUsername){
-
-        alert(
-            "الاسم غير موجود."
+            "لم تدخل إلى محادثة بعد."
         );
 
         return;
@@ -1657,7 +1482,6 @@ async function(){
             error
         );
 
-
         alert(
             "تعذر إرسال الرسالة."
         );
@@ -1676,9 +1500,7 @@ async function(){
 };
 
 
-/* ================================
-   Enter للإرسال
-================================ */
+/* Enter للإرسال */
 
 document
     .getElementById("messageInput")
@@ -1687,8 +1509,7 @@ document
         function(event){
 
             if(
-                event.key ===
-                "Enter"
+                event.key === "Enter"
             ){
 
                 event.preventDefault();
@@ -1704,4 +1525,3 @@ document
 
 </body>
 </html>
-
