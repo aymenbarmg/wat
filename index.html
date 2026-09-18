@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -46,7 +46,6 @@ body{
 ========================= */
 
 .screen{
-
     display:none !important;
 
     width:95%;
@@ -74,7 +73,6 @@ body{
 }
 
 @keyframes show{
-
     from{
         opacity:0;
         transform:translateY(20px);
@@ -84,7 +82,6 @@ body{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
 /* =========================
@@ -93,14 +90,10 @@ body{
 
 h2,
 h3{
-
     color:white;
     text-align:center;
-
     margin-bottom:10px;
-
     font-size:28px;
-
 }
 
 h3{
@@ -109,15 +102,10 @@ h3{
 }
 
 p{
-
     color:#ddd;
-
     text-align:center;
-
     margin-bottom:18px;
-
     line-height:1.6;
-
 }
 
 /* =========================
@@ -125,9 +113,7 @@ p{
 ========================= */
 
 input{
-
     width:100%;
-
     padding:15px;
 
     border:none;
@@ -144,7 +130,6 @@ input{
     margin-bottom:15px;
 
     backdrop-filter:blur(10px);
-
 }
 
 input::placeholder{
@@ -160,7 +145,6 @@ input[type="file"]{
 ========================= */
 
 button{
-
     width:100%;
 
     padding:15px;
@@ -190,15 +174,10 @@ button{
 
     box-shadow:
         0 4px 15px rgba(0,114,255,0.4);
-
 }
 
 button:hover{
-
-    transform:
-        translateY(-2px)
-        scale(1.02);
-
+    transform:translateY(-2px) scale(1.02);
 }
 
 button:active{
@@ -206,7 +185,6 @@ button:active{
 }
 
 button.secondary{
-
     background:
         linear-gradient(
             45deg,
@@ -216,7 +194,6 @@ button.secondary{
 
     box-shadow:
         0 4px 15px rgba(255,75,43,0.4);
-
 }
 
 /* =========================
@@ -224,7 +201,6 @@ button.secondary{
 ========================= */
 
 #chatScreen{
-
     width:100%;
     height:100vh;
 
@@ -235,15 +211,11 @@ button.secondary{
     padding:0;
 
     background:none;
-
 }
 
 #chatScreen.active{
-
     display:flex !important;
-
     flex-direction:column;
-
 }
 
 /* =========================
@@ -251,7 +223,6 @@ button.secondary{
 ========================= */
 
 .header{
-
     min-height:70px;
 
     background:
@@ -266,14 +237,19 @@ button.secondary{
 
     align-items:center;
 
-    padding:
-        0 20px;
+    padding:0 15px;
 
     color:white;
 
     border-bottom:
         1px solid rgba(255,255,255,0.08);
 
+    gap:10px;
+}
+
+.header h3{
+    flex:1;
+    text-align:center;
 }
 
 .room-number{
@@ -281,12 +257,38 @@ button.secondary{
     color:#00c6ff;
 }
 
+/* زر الرجوع */
+
+.back-button{
+    width:auto !important;
+    min-width:78px;
+
+    padding:10px 14px !important;
+
+    margin:0 !important;
+
+    border-radius:15px !important;
+
+    background:
+        rgba(255,255,255,0.15) !important;
+
+    box-shadow:none !important;
+
+    font-size:14px !important;
+
+    white-space:nowrap;
+}
+
+.back-button:hover{
+    background:
+        rgba(255,255,255,0.25) !important;
+}
+
 /* =========================
    الرسائل
 ========================= */
 
 .chat-container{
-
     flex:1;
 
     overflow-y:auto;
@@ -298,23 +300,16 @@ button.secondary{
     flex-direction:column;
 
     gap:12px;
-
 }
 
-/* =========================
-   الرسالة
-========================= */
-
 .message{
-
     max-width:75%;
 
     padding:14px 16px;
 
     border-radius:20px;
 
-    animation:
-        fadeIn 0.3s ease;
+    animation:fadeIn 0.3s ease;
 
     position:relative;
 
@@ -323,11 +318,9 @@ button.secondary{
     word-wrap:break-word;
 
     overflow-wrap:anywhere;
-
 }
 
 .message.sent{
-
     align-self:flex-end;
 
     background:
@@ -340,11 +333,9 @@ button.secondary{
     color:white;
 
     border-bottom-right-radius:5px;
-
 }
 
 .message.received{
-
     align-self:flex-start;
 
     background:
@@ -353,7 +344,6 @@ button.secondary{
     color:white;
 
     border-bottom-left-radius:5px;
-
 }
 
 /* =========================
@@ -361,7 +351,6 @@ button.secondary{
 ========================= */
 
 .username{
-
     font-size:11px;
 
     color:#ffe082;
@@ -369,15 +358,13 @@ button.secondary{
     margin-bottom:5px;
 
     font-weight:bold;
-
 }
 
 /* =========================
-   منطقة الكتابة
+   الكتابة
 ========================= */
 
 .input-area{
-
     padding:12px;
 
     display:flex;
@@ -390,35 +377,28 @@ button.secondary{
     backdrop-filter:blur(20px);
 
     -webkit-backdrop-filter:blur(20px);
-
 }
 
 .input-area input{
-
     flex:1;
 
     margin:0;
 
     border-radius:30px;
 
-    padding:
-        15px 20px;
-
+    padding:15px 20px;
 }
 
 .input-area button{
-
     width:auto;
 
     min-width:90px;
 
     border-radius:30px;
 
-    padding:
-        0 25px;
+    padding:0 25px;
 
     margin:0;
-
 }
 
 /* =========================
@@ -430,12 +410,10 @@ button.secondary{
 }
 
 .chat-container::-webkit-scrollbar-thumb{
-
     background:
         rgba(255,255,255,0.2);
 
     border-radius:10px;
-
 }
 
 /* =========================
@@ -445,31 +423,21 @@ button.secondary{
 @keyframes fadeIn{
 
     from{
-
         opacity:0;
-
-        transform:
-            translateY(10px);
-
+        transform:translateY(10px);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-            translateY(0);
-
+        transform:translateY(0);
     }
-
 }
 
 /* =========================
-   الصورة الشخصية
+   الصورة
 ========================= */
 
 .profile-preview{
-
     width:70px;
     height:70px;
 
@@ -479,12 +447,10 @@ button.secondary{
 
     display:none;
 
-    margin:
-        0 auto 15px;
+    margin:0 auto 15px;
 
     border:
         3px solid rgba(255,255,255,0.4);
-
 }
 
 /* =========================
@@ -502,11 +468,22 @@ button.secondary{
     }
 
     .header{
-        padding:0 12px;
+        padding:0 10px;
+        gap:5px;
     }
 
     .header h3{
         font-size:17px;
+    }
+
+    .header > div{
+        font-size:12px;
+    }
+
+    .back-button{
+        min-width:68px !important;
+        padding:9px 10px !important;
+        font-size:13px !important;
     }
 
     .input-area{
@@ -527,9 +504,9 @@ button.secondary{
 <body>
 
 
-<!-- ==================================================
+<!-- ================================
      شاشة الاسم
-================================================== -->
+================================ -->
 
 <div class="screen active" id="nameScreen">
 
@@ -573,14 +550,11 @@ button.secondary{
 </div>
 
 
-<!-- ==================================================
+<!-- ================================
      شاشة الخيارات
-================================================== -->
+================================ -->
 
-<div
-    class="screen"
-    id="optionsScreen"
->
+<div class="screen" id="optionsScreen">
 
     <h2>خيارات المحادثة</h2>
 
@@ -617,14 +591,11 @@ button.secondary{
 </div>
 
 
-<!-- ==================================================
+<!-- ================================
      شاشة الغرفة
-================================================== -->
+================================ -->
 
-<div
-    class="screen"
-    id="roomScreen"
->
+<div class="screen" id="roomScreen">
 
     <h2 id="roomTitle">
         غرفة المحادثة
@@ -672,20 +643,29 @@ button.secondary{
 </div>
 
 
-<!-- ==================================================
+<!-- ================================
      شاشة المحادثة
-================================================== -->
+================================ -->
 
-<div
-    class="screen"
-    id="chatScreen"
->
+<div class="screen" id="chatScreen">
 
     <div class="header">
+
+        <!-- زر الرجوع الجديد -->
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="leaveChat()"
+        >
+            ← رجوع
+        </button>
+
 
         <h3>
             لمسه
         </h3>
+
 
         <div>
             غرفة:
@@ -728,16 +708,18 @@ button.secondary{
 </div>
 
 
-<!-- ==================================================
+<!-- ================================
      Firebase
-================================================== -->
+================================ -->
 
 <script type="module">
 
 import {
     initializeApp
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
 
 import {
     getDatabase,
@@ -747,13 +729,14 @@ import {
     get,
     onChildAdded,
     off
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 
-/* =========================================
+/* ================================
    إعداد Firebase
-========================================= */
+================================ */
 
 const firebaseConfig = {
 
@@ -781,9 +764,7 @@ const firebaseConfig = {
 };
 
 
-/* =========================================
-   تشغيل Firebase مرة واحدة فقط
-========================================= */
+/* تشغيل Firebase مرة واحدة فقط */
 
 const app =
     initializeApp(firebaseConfig);
@@ -792,9 +773,9 @@ const db =
     getDatabase(app);
 
 
-/* =========================================
-   المتغيرات العامة
-========================================= */
+/* ================================
+   المتغيرات
+================================ */
 
 window.myUsername =
     localStorage.getItem("chatUsername") || "";
@@ -802,16 +783,19 @@ window.myUsername =
 window.myProfileImage =
     localStorage.getItem("chatProfile") || "";
 
-window.currentRoomCode = "";
+window.currentRoomCode =
+    "";
 
-window.currentActionType = "";
+window.currentActionType =
+    "";
 
-window.currentMessagesRef = null;
+window.currentMessagesRef =
+    null;
 
 
-/* =========================================
+/* ================================
    تبديل الشاشات
-========================================= */
+================================ */
 
 window.switchScreen =
 function(id){
@@ -838,9 +822,9 @@ function(id){
 };
 
 
-/* =========================================
-   تحميل البيانات عند فتح الصفحة
-========================================= */
+/* ================================
+   تحميل الاسم
+================================ */
 
 window.addEventListener(
     "load",
@@ -863,6 +847,7 @@ window.addEventListener(
             window.myUsername =
                 savedName;
 
+
             document.getElementById(
                 "usernameInput"
             ).value =
@@ -883,8 +868,10 @@ window.addEventListener(
                     "profilePreview"
                 );
 
+
             preview.src =
                 savedProfile;
+
 
             preview.style.display =
                 "block";
@@ -895,9 +882,9 @@ window.addEventListener(
 );
 
 
-/* =========================================
+/* ================================
    معاينة الصورة
-========================================= */
+================================ */
 
 document
     .getElementById("profileImage")
@@ -907,6 +894,7 @@ document
 
             const file =
                 this.files[0];
+
 
             if(!file) return;
 
@@ -936,8 +924,10 @@ document
                             "profilePreview"
                         );
 
+
                     preview.src =
                         e.target.result;
+
 
                     preview.style.display =
                         "block";
@@ -951,9 +941,9 @@ document
     );
 
 
-/* =========================================
+/* ================================
    حفظ الاسم
-========================================= */
+================================ */
 
 window.saveName =
 function(){
@@ -1008,8 +998,6 @@ function(){
         name;
 
 
-    /* إذا اختار صورة */
-
     if(file){
 
         const reader =
@@ -1051,9 +1039,9 @@ function(){
 };
 
 
-/* =========================================
+/* ================================
    تغيير الاسم
-========================================= */
+================================ */
 
 window.changeName =
 function(){
@@ -1065,9 +1053,9 @@ function(){
 };
 
 
-/* =========================================
-   شاشة إنشاء / دخول الغرفة
-========================================= */
+/* ================================
+   اختيار إنشاء / دخول
+================================ */
 
 window.showRoomScreen =
 function(type){
@@ -1152,9 +1140,9 @@ function(type){
 };
 
 
-/* =========================================
-   السماح بالأرقام فقط
-========================================= */
+/* ================================
+   أرقام رمز الغرفة فقط
+================================ */
 
 document
     .getElementById("roomCodeInput")
@@ -1171,9 +1159,9 @@ document
     );
 
 
-/* =========================================
-   إنشاء أو دخول غرفة
-========================================= */
+/* ================================
+   إنشاء / دخول
+================================ */
 
 window.processRoomAction =
 async function(){
@@ -1242,9 +1230,7 @@ async function(){
             await get(roomRef);
 
 
-        /* ==========================
-           إنشاء غرفة
-        ========================== */
+        /* إنشاء غرفة */
 
         if(
             window.currentActionType
@@ -1257,8 +1243,6 @@ async function(){
                 alert(
                     "هذه الغرفة موجودة مسبقاً، اختر رمزاً آخر."
                 );
-
-                input.focus();
 
                 return;
 
@@ -1284,9 +1268,7 @@ async function(){
         }
 
 
-        /* ==========================
-           دخول غرفة
-        ========================== */
+        /* دخول غرفة */
 
         else{
 
@@ -1309,11 +1291,30 @@ async function(){
 
     catch(error){
 
-        console.error(error);
-
-        alert(
-            "حدث خطأ أثناء الاتصال بقاعدة البيانات."
+        console.error(
+            "Firebase Error:",
+            error
         );
+
+
+        if(
+            error.code ===
+            "PERMISSION_DENIED"
+        ){
+
+            alert(
+                "Firebase رفض الوصول إلى قاعدة البيانات. تأكد من Rules."
+            );
+
+        }
+
+        else{
+
+            alert(
+                "حدث خطأ أثناء إنشاء البيانات."
+            );
+
+        }
 
     }
 
@@ -1321,6 +1322,7 @@ async function(){
 
         button.disabled =
             false;
+
 
         button.innerText =
             window.currentActionType === "create"
@@ -1334,9 +1336,9 @@ async function(){
 };
 
 
-/* =========================================
-   الدخول إلى المحادثة
-========================================= */
+/* ================================
+   دخول الشات
+================================ */
 
 window.enterChat =
 function(code){
@@ -1357,19 +1359,20 @@ function(code){
         );
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
-    /*
-       إزالة المستمع القديم
-       حتى لا تتكرر الرسائل
-    */
+    /* إزالة المستمع السابق */
 
     if(window.currentMessagesRef){
 
         off(
             window.currentMessagesRef
         );
+
+        window.currentMessagesRef =
+            null;
 
     }
 
@@ -1399,8 +1402,11 @@ function(code){
 
 
             appendMessageToDOM(
-                msg.sender || "مستخدم",
-                msg.text || ""
+                msg.sender ||
+                "مستخدم",
+
+                msg.text ||
+                ""
             );
 
         }
@@ -1428,9 +1434,65 @@ function(code){
 };
 
 
-/* =========================================
-   إضافة رسالة إلى الشاشة
-========================================= */
+/* ================================
+   زر الرجوع
+================================ */
+
+window.leaveChat =
+function(){
+
+    /* إيقاف استقبال الرسائل */
+
+    if(window.currentMessagesRef){
+
+        off(
+            window.currentMessagesRef
+        );
+
+        window.currentMessagesRef =
+            null;
+
+    }
+
+
+    /* تنظيف الشاشة */
+
+    document.getElementById(
+        "chatContainer"
+    ).innerHTML =
+        "";
+
+
+    document.getElementById(
+        "messageInput"
+    ).value =
+        "";
+
+
+    /* تصفير الغرفة الحالية */
+
+    window.currentRoomCode =
+        "";
+
+
+    document.getElementById(
+        "activeRoomCode"
+    ).innerText =
+        "0000";
+
+
+    /* الرجوع للخيارات */
+
+    switchScreen(
+        "optionsScreen"
+    );
+
+};
+
+
+/* ================================
+   إضافة رسالة
+================================ */
 
 window.appendMessageToDOM =
 function(sender,text){
@@ -1470,8 +1532,10 @@ function(sender,text){
             "div"
         );
 
+
     username.className =
         "username";
+
 
     username.textContent =
         sender;
@@ -1482,6 +1546,7 @@ function(sender,text){
             "div"
         );
 
+
     messageText.textContent =
         text;
 
@@ -1489,6 +1554,7 @@ function(sender,text){
     div.appendChild(
         username
     );
+
 
     div.appendChild(
         messageText
@@ -1506,9 +1572,9 @@ function(sender,text){
 };
 
 
-/* =========================================
+/* ================================
    إرسال رسالة
-========================================= */
+================================ */
 
 window.sendMessage =
 async function(){
@@ -1544,7 +1610,7 @@ async function(){
     if(!window.myUsername){
 
         alert(
-            "الاسم غير موجود، أعد كتابة اسمك."
+            "الاسم غير موجود."
         );
 
         return;
@@ -1580,13 +1646,17 @@ async function(){
         );
 
 
-        input.value = "";
+        input.value =
+            "";
 
     }
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         alert(
             "تعذر إرسال الرسالة."
@@ -1606,9 +1676,9 @@ async function(){
 };
 
 
-/* =========================================
-   زر Enter لإرسال الرسالة
-========================================= */
+/* ================================
+   Enter للإرسال
+================================ */
 
 document
     .getElementById("messageInput")
@@ -1634,4 +1704,4 @@ document
 
 </body>
 </html>
-```
+
